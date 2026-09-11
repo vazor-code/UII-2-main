@@ -50,7 +50,7 @@
               <div class="detail-item"><v-icon>mdi-domain</v-icon><div><span>Бренд</span><strong>{{ asset.brand || '—' }}</strong></div></div>
               <div class="detail-item"><v-icon>mdi-barcode</v-icon><div><span>Серийный номер</span><strong>{{ asset.serial_number || '—' }}</strong></div></div>
               <div class="detail-item"><v-icon>mdi-currency-rub</v-icon><div><span>Стоимость</span><strong>{{ formatMoney(asset.cost) }}</strong></div></div>
-              <div class="detail-item"><v-icon>mdi-counter</v-icon><div><span>Количество</span><strong>{{ asset.quantity }} {{ asset.unit || 'шт.' }}</strong></div></div>
+              <div class="detail-item"><v-icon>mdi-counter</v-icon><div><span>Количество</span><strong>{{ formatQuantity(asset.quantity) }} {{ asset.unit || 'шт.' }}</strong></div></div>
               <div class="detail-item"><v-icon>mdi-home-outline</v-icon><div><span>Помещение</span><strong>{{ roomName || 'Не назначено' }}</strong></div></div>
               <div class="detail-item"><v-icon>mdi-calendar-outline</v-icon><div><span>Год покупки</span><strong>{{ asset.purchase_year || '—' }}</strong></div></div>
             </div>
@@ -274,6 +274,10 @@ function statusColor(s: string): string {
 function formatMoney(v: number | null | undefined): string {
   if (v === null || v === undefined) return '—'
   return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(v)
+}
+
+function formatQuantity(v: number): string {
+  return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 3 }).format(v)
 }
 
 async function loadAsset(): Promise<void> {

@@ -51,7 +51,7 @@
           </v-chip>
         </template>
         <template #[`item.quantity`]="{ item }">
-          {{ item.quantity }} {{ item.unit ?? '' }}
+          {{ formatQuantity(item.quantity) }} {{ item.unit ?? '' }}
         </template>
         <template #[`item.cost`]="{ item }">
           {{ formatMoney(item.cost) }}
@@ -167,6 +167,10 @@ function statusColor(s: string): string {
 function formatMoney(v: number | null | undefined): string {
   if (v === null || v === undefined) return '—'
   return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(v)
+}
+
+function formatQuantity(v: number): string {
+  return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 3 }).format(v)
 }
 
 async function load(): Promise<void> {
